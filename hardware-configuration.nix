@@ -18,10 +18,10 @@
       fsType = "ext4";
     };
 
-  fileSystems."/mnt/share" =
-    { device = "systemd-1";
-      fsType = "autofs";
-    };
+  # fileSystems."/mnt/share" =
+  #   { device = "systemd-1";
+  #     fsType = "autofs";
+  #   };
 
   fileSystems."/mnt/games-partition" =
     { device = "/dev/disk/by-uuid/1fa6aa19-7014-4ce4-a989-45306dff87da";

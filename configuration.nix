@@ -9,7 +9,8 @@
     [ # Include the results of the hardware scan.G9
       ./hardware-configuration.nix
       <home-manager/nixos>
-      ./subconfigs/user_ace.nix
+      ./subconfigs/user-ace.nix
+      ./subconfigs/system-packages.nix
     ];
 
   # Bootloader.
@@ -137,12 +138,10 @@
 
   
   services.flatpak.enable = true;
-
-  # Auto system update  
-  system.autoUpgrade =  {
-	enable = true;
-	}; 
-
+  # fileSystems."/mnt/share" =
+  #   { device = "systemd-1";
+  #     fsType = "autofs";
+  #   };
   # Garbage collector:
   nix.gc = {
 		automatic = true;
@@ -175,7 +174,7 @@
   # virtualisation.virtualbox.guest.clipboard = true;
   # users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 
-  # For mount.cifs, required unless domain name resolution is not needed.
+  # # For mount.cifs, required unless domain name resolution is not needed.
   fileSystems."/mnt/share" = {
     device = "//192.168.0.11/";
     fsType = "cifs";
