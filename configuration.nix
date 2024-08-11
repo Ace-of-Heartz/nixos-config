@@ -11,6 +11,7 @@
       <home-manager/nixos>
       ./subconfigs/user-ace.nix
       ./subconfigs/system-packages.nix
+      ./subconfigs/emacs.nix
     ];
 
   # Bootloader.
@@ -265,11 +266,7 @@
   hardware.sane.extraBackends = [ pkgs.epkowa pkgs.utsushi];
   services.udev.packages = [pkgs.utsushi];
 
-  # Emacs:
-  services.emacs = {
-    enable = true;
-    package = pkgs.emacs;
-  };
+
 
   # Hyprland:
   programs.hyprland.enable = true;
