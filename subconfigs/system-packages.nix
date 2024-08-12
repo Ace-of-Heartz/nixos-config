@@ -26,9 +26,15 @@
     # native wayland support (unstable)
     wineWowPackages.waylandFull
 
+    pkgs.kdePackages.kdenetwork-filesharing
+
+
     home-manager
+    lact 
+    linuxPackages.amdgpu-pro
     
-    emacs
+    direnv
+    nix-direnv
   ];
 }
 
