@@ -9,10 +9,9 @@
     [ # Include the results of the hardware scan.G9
       ./hardware-configuration.nix
       <home-manager/nixos>
-      ./subconfigs/user-ace.nix
-      ./subconfigs/system-packages.nix
-      ./subconfigs/emacs.nix
-    ];
+    ] 
+    ++ [(import ./subconfigs/default.nix)]
+    ++ [(import ./modules/default.nix)];
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;
@@ -189,6 +188,7 @@
   # Home-manager:
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.backupFileExtension = "backup";
  
 
   # OpenCL
@@ -223,22 +223,22 @@
 
   # Shells:
 
-  programs.fish.enable = true;
+  # programs.fish.enable = true;
   # Blender & HIP:
 
-  systemd.tmpfiles.rules =
-  let
-    rocmEnv = pkgs.symlinkJoin {
-      name = "rocm-combined";
-      paths = with pkgs.rocmPackages; [
-        rocblas
-        hipblas
-        clr
-      ];
-    };
-  in [
-    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-  ];
+  # systemd.tmpfiles.rules =
+  # let
+  #   rocmEnv = pkgs.symlinkJoin {
+  #     name = "rocm-combined";
+  #     paths = with pkgs.rocmPackages; [
+  #       rocblas
+  #       hipblas
+  #       clr
+  #     ];
+  #   };
+  # in [
+  #   "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+  # ];
 
   # Flatpak:
 
@@ -257,17 +257,4 @@
       BandWidthRate = "1 MBytes";
     };
   };  
-
-  # Printing: 
-  services.printing.drivers = [ pkgs.gutenprint ];
-
-  # Scanning:
-  hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.epkowa pkgs.utsushi];
-  services.udev.packages = [pkgs.utsushi];
-
-
-
-  # Hyprland:
-  programs.hyprland.enable = true;
 }
