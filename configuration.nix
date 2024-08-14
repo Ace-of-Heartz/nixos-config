@@ -143,21 +143,23 @@
   #     fsType = "autofs";
   #   };
   # Garbage collector:
-  nix.gc = {
-		automatic = true;
-		dates = "weekly";
-		options = "--delete-older-than 7d";
-	};
+  # nix.gc = {
+	# 	automatic = true;
+	# 	dates = "weekly";
+	# 	options = "--delete-older-than 7d";
+	# };
   # Experimental features: 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # Steam:
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
+  # # Steam:
+  # programs.steam = {
+  #   enable = true;
+  #   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  #   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  #   localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  # };
+
+
   nixpkgs.overlays = [
     (import (builtins.fetchTarball https://github.com/nix-community/emacs-overlay/archive/master.tar.gz))
   ];
@@ -192,30 +194,26 @@
  
 
   # OpenCL
-  hardware.opengl.extraPackages = with pkgs; [
-  rocmPackages.clr.icd
-  rocm-opencl-icd
-  rocm-opencl-runtime
-  ];
+
 
 
   # Vulkan:
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true; # This is already enabled by default
-  hardware.opengl.driSupport32Bit = true; # For 32 bit applications
+  # hardware.opengl.enable = true;
+  # hardware.opengl.driSupport = true; # This is already enabled by default
+  # hardware.opengl.driSupport32Bit = true; # For 32 bit applications
 
 
   # GUI Tools for AMD GPU:
 
-  systemd.packages = with pkgs; [ lact ];
-  systemd.services.lactd = {
-    description = "AMDGPU Control Daemon";
-    enable = true; # this is true by default
-    wantedBy = [ "multi-user.target" ]; # add this if you want the unit to auto start at boot time
-    #serviceConfig = {
-    #  ExecStart = "${pkgs.lact}/bin/lact daemon";
-    #};
-  };
+  # systemd.packages = with pkgs; [ lact ];
+  # systemd.services.lactd = {
+  #   description = "AMDGPU Control Daemon";
+  #   enable = true; # this is true by default
+  #   wantedBy = [ "multi-user.target" ]; # add this if you want the unit to auto start at boot time
+  #   #serviceConfig = {
+  #   #  ExecStart = "${pkgs.lact}/bin/lact daemon";
+  #   #};
+  # };
 
   # Virtualisation:
 
