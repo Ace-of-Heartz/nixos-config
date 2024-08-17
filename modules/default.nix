@@ -9,6 +9,7 @@
   ++ [(import ./blender/blender.nix)]
   ++ [(import ./steam.nix)]
   ++ [(import ./emacs.nix)]
+  ++ [(import ./vm.nix)]
+  ++ [(import ./tor.nix)]
   ;
-
 }

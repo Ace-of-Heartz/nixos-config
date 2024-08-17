@@ -142,23 +142,9 @@
   #   { device = "systemd-1";
   #     fsType = "autofs";
   #   };
-  # Garbage collector:
-  # nix.gc = {
-	# 	automatic = true;
-	# 	dates = "weekly";
-	# 	options = "--delete-older-than 7d";
-	# };
+
   # Experimental features: 
   nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  # # Steam:
-  # programs.steam = {
-  #   enable = true;
-  #   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-  #   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  #   localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  # };
-
 
   nixpkgs.overlays = [
     (import (builtins.fetchTarball https://github.com/nix-community/emacs-overlay/archive/master.tar.gz))
@@ -166,15 +152,6 @@
 
   # Wacom tablet:
   #hardware.opentabletdriver.enable = true;
-
-  # VirtualBox:
-
-  # virtualisation.virtualbox.host.enable = true;
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
-  # virtualisation.virtualbox.guest.enable = true;
-  # virtualisation.virtualbox.guest.draganddrop = true;
-  # virtualisation.virtualbox.guest.clipboard = true;
-  # users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 
   # # For mount.cifs, required unless domain name resolution is not needed.
   fileSystems."/mnt/share" = {
@@ -192,67 +169,4 @@
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
  
-
-  # OpenCL
-
-
-
-  # Vulkan:
-  # hardware.opengl.enable = true;
-  # hardware.opengl.driSupport = true; # This is already enabled by default
-  # hardware.opengl.driSupport32Bit = true; # For 32 bit applications
-
-
-  # GUI Tools for AMD GPU:
-
-  # systemd.packages = with pkgs; [ lact ];
-  # systemd.services.lactd = {
-  #   description = "AMDGPU Control Daemon";
-  #   enable = true; # this is true by default
-  #   wantedBy = [ "multi-user.target" ]; # add this if you want the unit to auto start at boot time
-  #   #serviceConfig = {
-  #   #  ExecStart = "${pkgs.lact}/bin/lact daemon";
-  #   #};
-  # };
-
-  # Virtualisation:
-
-  virtualisation.libvirtd.enable = true;
-
-  # Shells:
-
-  # programs.fish.enable = true;
-  # Blender & HIP:
-
-  # systemd.tmpfiles.rules =
-  # let
-  #   rocmEnv = pkgs.symlinkJoin {
-  #     name = "rocm-combined";
-  #     paths = with pkgs.rocmPackages; [
-  #       rocblas
-  #       hipblas
-  #       clr
-  #     ];
-  #   };
-  # in [
-  #   "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-  # ];
-
-  # Flatpak:
-
-  services.tor = {
-    enable = true;
-    openFirewall = true;
-    relay = {
-      enable = true;
-      role = "relay";
-    };
-    settings = {
-      ContactInfo = "SyntheticHeart@TheEndIsNeverTheEnd.org";
-      Nickname = "SyntheticHeart";
-      ORPort = 9001;
-      ControlPort = 9051;
-      BandWidthRate = "1 MBytes";
-    };
-  };  
 }
