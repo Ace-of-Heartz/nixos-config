@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.G9
       ./hardware-configuration.nix
       <home-manager/nixos>
+      #~/.config/home-manager/home.nix
     ] 
     ++ [(import ./subconfigs/default.nix)]
     ++ [(import ./modules/default.nix)];
@@ -19,7 +20,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # boot.kernelParams = [ "radeon.cik_support=0" "amdgpu.cik_support=1" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  # boot.initrd.kernelModules = [ "amdgpu" ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
@@ -59,14 +60,24 @@
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
+
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland = {
+        enable = true;
+        compositor = "kwin";
+      };
+    };
+  };
+
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
+    enable = true;
+    videoDrivers = [ "amdgpu" ];
     xkb = {
       layout = "hu";
       variant = "";
@@ -168,7 +179,8 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
+  # home-manager.users.ace = import <home-manager/nixos>;
 
-  
+  security.polkit.enable = true;
   
 }
